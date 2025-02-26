@@ -62,7 +62,7 @@ class Graph {
         }
 
         // Print the final shortest path matrix with node names
-        System.out.println("Final Shortest Path Matrix (λ Matrix):");
+        System.out.println("Final Shortest Path Matrix");
         System.out.print("\t");
         for (int i = 0; i < V; i++) {
             System.out.print(nodeNames[i] + "\t");
