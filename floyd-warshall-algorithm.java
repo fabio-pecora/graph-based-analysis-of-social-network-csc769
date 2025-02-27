@@ -1,11 +1,10 @@
 import java.util.*;
 
 class Graph {
-    private int V; // Number of vertices
-    private LinkedList<Edge>[] adjList; // Adjacency list representation
+    private int V;
+    private LinkedList<Edge>[] adjList;
     private String[] nodeNames; // Node names
 
-    // Edge class to store destination and weight
     static class Edge {
         int dest, weight;
 
@@ -15,7 +14,6 @@ class Graph {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Graph(int vertices, String[] names) {
         this.V = vertices;
         this.nodeNames = names;
@@ -31,17 +29,15 @@ class Graph {
     }
 
     public void floydWarshall() {
-        double[][] lambda = new double[V][V]; // λ matrix (shortest paths)
-        int[][] parent = new int[V][V]; // Parent matrix (predecessors)
+        double[][] lambda = new double[V][V];
+        int[][] parent = new int[V][V];
 
-        // Initialize λ with adjacency matrix values and ∞ where no direct edge exists
         for (int i = 0; i < V; i++) {
             Arrays.fill(lambda[i], Double.POSITIVE_INFINITY);
             Arrays.fill(parent[i], -1);
-            lambda[i][i] = 0; // Distance to itself is 0
+            lambda[i][i] = 0;
         }
 
-        // Populate λ with given edges
         for (int i = 0; i < V; i++) {
             for (Edge edge : adjList[i]) {
                 lambda[i][edge.dest] = edge.weight;
@@ -49,7 +45,6 @@ class Graph {
             }
         }
 
-        // Floyd-Warshall Algorithm
         for (int k = 0; k < V; k++) {
             for (int i = 0; i < V; i++) {
                 for (int j = 0; j < V; j++) {
@@ -61,7 +56,6 @@ class Graph {
             }
         }
 
-        // Print the final shortest path matrix with node names
         System.out.println("Final Shortest Path Matrix");
         System.out.print("\t");
         for (int i = 0; i < V; i++) {
@@ -81,7 +75,6 @@ class Graph {
             System.out.println();
         }
 
-        // Compute Closeness Centrality
         double[] closenessCentrality = new double[V];
         for (int i = 0; i < V; i++) {
             double sumShortestPaths = 0;
@@ -93,7 +86,6 @@ class Graph {
             closenessCentrality[i] = (V - 1) / sumShortestPaths;
         }
 
-        // Print Closeness Centrality with node names
         System.out.println("\nCloseness Centrality:");
         for (int i = 0; i < V; i++) {
             System.out.printf("Node %s: %.6f\n", nodeNames[i], closenessCentrality[i]);
@@ -101,11 +93,10 @@ class Graph {
     }
 
     public static void main(String[] args) {
-        // Define node names instead of just numbers
-        String[] nodeNames = {"s", "1", "2", "3", "4", "5", "6", "t"};
+
+        String[] nodeNames = { "s", "1", "2", "3", "4", "5", "6", "t" };
         Graph graph = new Graph(8, nodeNames);
 
-        // Add edges based on the corrected final graph
         graph.addEdge(0, 1, 2);
         graph.addEdge(0, 2, 1);
         graph.addEdge(0, 3, 2);
@@ -120,6 +111,6 @@ class Graph {
         graph.addEdge(5, 7, 5);
         graph.addEdge(6, 7, 3);
 
-        graph.floydWarshall(); // Compute shortest paths and centrality
+        graph.floydWarshall();
     }
 }
