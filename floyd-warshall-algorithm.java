@@ -1,10 +1,9 @@
-suca valeriana
 import java.util.*;
 
 class Graph {
     private int V;
     private LinkedList<Edge>[] adjList;
-    private String[] nodeNames; // Node names
+    private String[] nodeNames;
 
     static class Edge {
         int dest, weight;
